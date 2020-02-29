@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Etch-A-Sketch</title>
+    <meta charset="UTF-8"/>
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+
+    <h1>Etch-A-Sketch</h1>
+    <button id='reset'>Reset Grid</button><br>
+    <div id='container'></div>
+  
+</body>
+
+<script>
+    // JS script goes here
+
+    const container = document.querySelector('#container');
+
+    container.style.gridTemplateColumns = 'repeat(16, 1fr)';
+    container.style.gridTemplateRows = 'repeat(16, 1fr)';
+
+
+    for (let i=0; i < 16 ** 2; i++) {
+        const originalDiv = document.createElement('div')
+        originalDiv.classList.add('originalGridDivs');
+        originalDiv.id = ('originalDiv' + i);
+        container.appendChild(originalDiv);
+    }
+
+    let originalDiv = document.getElementsByClassName('originalGridDivs');
+
+    
+    function colorOriginalDivs(){
+        for (let i=0; i < 16 ** 2; i++) {
+            originalDiv[i].addEventListener('mouseenter', function(){
+                originalDiv[i].setAttribute('style', 'background: black')
+            })
+
+            originalDiv[i].addEventListener('mouseleave', function(){
+                originalDiv[i].setAttribute('style', 'null')
+            })
+        }
+    }
+
+    colorOriginalDivs();
+
+
+
+
+    const resetbtn = document.querySelector('#reset');
+    resetbtn.addEventListener('click', function(){
+
+        const userEntry = Number(prompt('How many squares per side?', 0));
+        let gridTemplateColumns = 'repeat(' + userEntry + ', 1fr)';
+
+        function deleteOriginalDivs() {
+            const originalDivs = document.getElementsByClassName('originalGridDivs');
+            while (originalDivs.length > 0) {
+                originalDivs[0].parentNode.removeChild(originalDivs[0])
+            }
+
+
+        }
+
+        deleteOriginalDivs();
+        
+
+        for (let i=0; i < userEntry ** 2; i++) {
+            const userDiv = document.createElement('div')
+            userDiv.classList.add('gridDivs');
+            userDiv.id = ('userDiv' + i);
+            container.appendChild(userDiv);
+        }
+
+        container.style.gridTemplateColumns = gridTemplateColumns;
+        container.style.gridTemplateRows = gridTemplateColumns;
+
+        let gridDivs = document.getElementsByClassName('gridDivs');
+
+
+        function colorDivs(){
+            for (let i=0; i < gridDivs.length; i++) {
+                gridDivs[i].addEventListener('mouseenter', function(){
+                    gridDivs[i].setAttribute('style', 'background: black')
+                })
+
+                gridDivs[i].addEventListener('mouseleave', function(){
+                    gridDivs[i].setAttribute('style', 'null')
+                })
+            }
+        }
+
+        colorDivs();
+
+
+
+        
+    })
+
+    
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
